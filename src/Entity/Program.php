@@ -19,13 +19,13 @@ class Program
     #[ORM\Column(length: 255)]
     private ?string $synopsis = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $poster = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255,nullable: true)]
     private ?string $country = null;
 
-    #[ORM\Column]
+    #[ORM\Column(nullable: true)]
     private ?int $year = null;
 
     #[ORM\ManyToOne]
