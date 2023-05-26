@@ -25,6 +25,8 @@ class ProgramController extends AbstractController
     {
         $program = $programRepository->findOneBy(['id' => $id]);
 
+    //TODO: generate 404 error
+
         if (!$program) {
             throw  $this->CreateNotFoundException(
                 'No program with id : '.$id.' found in program\'s table.'
