@@ -10,7 +10,7 @@
             {# Lien vers la fiche de la catégorie : #}
             <h2><a href="{{ path("category_show", { categoryName: category.name }) }}">{{ category.name }}</h2></a>
         </div>
-        {# ... #}
+
     {% else %}
         Aucune catégorie trouvée.
     {% endfor %}

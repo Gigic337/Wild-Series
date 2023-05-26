@@ -24,7 +24,8 @@ class ProgramFixtures extends Fixture
 
         ' A hedonistic jingle writer\'s free-wheeling life comes to an abrupt halt when his brother and 10-year-old nephew move into his beach-front house.',
 
-        'The One Piece is the driving goal of Monkey D. Luffy and his crew, as well as that of multiple other pirates, who all seek to claim the treasure in order to become the next Pirate King, following Roger\'s dying words at his execution.'
+        'The One Piece is the driving goal of Monkey D. Luffy and his crew, as well as that of multiple other pirates, who all seek to claim the treasure in order to become the next Pirate King, following 
+        Roger\'s dying words at his execution.'
         ];
 
     const PROGRAM_CATEGORIES = [
