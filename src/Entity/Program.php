@@ -28,8 +28,7 @@ class Program
     #[ORM\Column(nullable: true)]
     private ?int $year = null;
 
-    #[ORM\ManyToOne]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\ManyToOne(inversedBy: 'programs')]
     private ?Category $category = null;
 
     public function getId(): ?int
