@@ -33,7 +33,7 @@ class Program
     #[ORM\ManyToOne(inversedBy: 'programs')]
     private ?Category $category = null;
 
-    #[ORM\OneToMany(mappedBy: 'category', targetEntity: Season::class)]
+    #[ORM\OneToMany(mappedBy: 'program', targetEntity: Season::class)]
     private Collection $seasons;
 
     public function __construct()
@@ -121,6 +121,10 @@ class Program
     /**
      * @return Collection<int, Season>
      */
+
+    /**
+     * @return Collection<int, Season>
+     */
     public function getSeasons(): Collection
     {
         return $this->seasons;
@@ -130,7 +134,7 @@ class Program
     {
         if (!$this->seasons->contains($season)) {
             $this->seasons->add($season);
-            $season->setCategory($this);
+            $season->setProgram($this);
         }
 
         return $this;
@@ -140,8 +144,8 @@ class Program
     {
         if ($this->seasons->removeElement($season)) {
             // set the owning side to null (unless already changed)
-            if ($season->getCategory() === $this) {
-                $season->setCategory(null);
+            if ($season->getProgram() === $this) {
+                $season->setProgram(null);
             }
         }
 
