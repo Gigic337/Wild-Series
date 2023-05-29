@@ -8,73 +8,78 @@ use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use phpDocumentor\Reflection\Types\Integer;
 
-class ProgramFixtures extends Fixture
+class ProgramFixtures extends Fixture implements DependentFixtureInterface
 {
-    const PROGRAM_DATA = [
+    const PROGRAMS = [
         [
             'title' => 'The Night Agent',
             'synopsis' => ' While monitoring a secret emergency line that rarely rings, vigilant FBI agent 
             Peter Sutherland answers a call from a young woman named Rose whose relatives were just killed and who is
              on the run from the murderer.',
-            'category' => 'Thriller',
             'country' => 'United-States',
             'year' => 2022,
+            'category' => 'Thriller',
         ],
 
         [
             'title' => '24',
             'synopsis' => ' Counter Terrorism Agent Jack Bauer races against the clock to subvert terrorist plots 
              and save his nation from ultimate disaster.',
-            'category' => 'Policier',
             'country' => 'United States',
             'year' => 1999,
+            'category' => 'Policier',
         ],
 
         [
             'title' => 'Two and a half men',
             'synopsis' => ' A hedonistic jingle writer\'s free-wheeling life comes to an abrupt halt when his brother 
             and 10-year-old nephew move into his beach-front house.',
-            'category' => 'Comédie',
             'country' => 'United States',
             'year' => 2002,
+            'category' => 'Comédie',
         ],
         [
             'title' => 'One Piece',
             'synopsis' => 'The One Piece is the driving goal of Monkey D. Luffy and his crew, as well other pirates,
              who all seek to claim the treasure in order to become the next Pirate King, following Roger\'s dying 
              words at his execution.',
-            'category' => 'Animation',
             'country' => 'Japan',
             'year' => 1990,
+            'category' => 'Animation',
         ],
         [
             'title' => 'Walking Dead',
             'synopsis' => 'Sheriff Deputy Rick Grimes wakes up from a coma to learn the world is in ruins and 
             must lead a group of survivors to stay alive.',
-            'category' => 'Horreur',
             'country' => 'United States',
             'year' => 2000,
+            'category' => 'Horreur',
         ],
     ];
 
 
     public function load(ObjectManager $manager)
     {
-        foreach (self::PROGRAM_DATA as $programData) {
-            $program = new Program();
-            $program->setTitle($programData['title']);
-            $program->setSynopsis($programData['synopsis']);
-            $program->setCategory($this->getReference('category_' . $programData['category']));
-            $program->setCountry($programData['country']);
-            $program->setYear($programData['year']);
-            $manager->persist($program);
+        foreach (self::PROGRAMS as $program) {
+            $programForFixture = new Program();
+            $programForFixture
+                ->setTitle($program ['title'])
+                ->setSynopsis($program ['synopsis'])
+                ->setCountry($program ['country'])
+                ->setYear($program ['year'])
+//                ->setPoster($program ['poster'])
+                ->setCategory($this->getReference('category_' . $program['category']));
+
+            $manager->persist($programForFixture);
+
+            $this->addReference('program_'.$program['title'], $programForFixture);
         }
         $manager->flush();
     }
 
-
-    public function getDependencies(): array
+    public function getDependencies()
     {
+        // Tu retournes ici toutes les classes de fixtures dont ProgramFixtures dépend
         return [
             CategoryFixtures::class,
         ];

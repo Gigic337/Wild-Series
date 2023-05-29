@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\ProgramRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ProgramRepository::class)]
@@ -33,7 +34,7 @@ class Program
     #[ORM\ManyToOne(inversedBy: 'programs')]
     private ?Category $category = null;
 
-    #[ORM\OneToMany(mappedBy: 'program', targetEntity: Season::class)]
+    #[ORM\OneToMany(mappedBy: 'program', targetEntity: Season::class, orphanRemoval: true)]
     private Collection $seasons;
 
     public function __construct()
