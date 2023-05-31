@@ -19,6 +19,7 @@ class ProgramFixtures extends Fixture implements DependentFixtureInterface
             'country' => 'United-States',
             'year' => 2022,
             'category' => 'Thriller',
+            'poster' => 'https://picsum.photos/',
         ],
 
         [
@@ -28,6 +29,7 @@ class ProgramFixtures extends Fixture implements DependentFixtureInterface
             'country' => 'United States',
             'year' => 1999,
             'category' => 'Policier',
+            'poster' => 'https://picsum.photos/',
         ],
 
         [
@@ -37,6 +39,7 @@ class ProgramFixtures extends Fixture implements DependentFixtureInterface
             'country' => 'United States',
             'year' => 2002,
             'category' => 'Comédie',
+            'poster' => 'https://picsum.photos/',
         ],
         [
             'title' => 'One Piece',
@@ -46,6 +49,7 @@ class ProgramFixtures extends Fixture implements DependentFixtureInterface
             'country' => 'Japan',
             'year' => 1990,
             'category' => 'Animation',
+            'poster' => 'https://picsum.photos/',
         ],
         [
             'title' => 'Walking Dead',
@@ -54,6 +58,7 @@ class ProgramFixtures extends Fixture implements DependentFixtureInterface
             'country' => 'United States',
             'year' => 2000,
             'category' => 'Horreur',
+            'poster' => 'https://picsum.photos/',
         ],
     ];
 
@@ -67,7 +72,7 @@ class ProgramFixtures extends Fixture implements DependentFixtureInterface
                 ->setSynopsis($program ['synopsis'])
                 ->setCountry($program ['country'])
                 ->setYear($program ['year'])
-//                ->setPoster($program ['poster'])
+                ->setPoster($program ['poster'])
                 ->setCategory($this->getReference('category_' . $program['category']));
 
             $manager->persist($programForFixture);

@@ -8,22 +8,26 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 
+use Faker\Factory;
+
 class SeasonFixtures extends Fixture implements DependentFixtureInterface
 {
     public function load(ObjectManager $manager)
     {
-        for ($i = 0; $i < 5; $i++){
+        $faker = Factory::create('fr_FR');
+
+        for ($i = 1; $i < 5; $i++){
             $season = new Season();
             $season
-                ->setNumber($i)
-                ->setYear(rand(2000, 2023))
-                ->setDescription('Description ' . $i)
+                ->setNumber($faker->unique()->numberBetween(1,5))
+                ->setYear($faker->year(2023))
+                ->setDescription($faker->paragraph(3))
+
                 ->setProgram($this->getReference('program_'. ProgramFixtures::PROGRAMS[$i]['title']));
 
             $manager->persist($season);
             $this->addReference('season_' . $season->getNumber(), $season);
         }
-
         $manager->flush();
     }
 
