@@ -14,8 +14,8 @@
             <h3>Seasons available :</h3>
             <ul>
                 {% for season in program.seasons %}
-                    <li>{{ season.number }}</li>
-                    <p>{{ season.description }}</p>
+                    <li><a href="{{ path('program_season_show', { program: program.id, season: season.id}) }}">{{ season.number }}</a>
+                    <p>{{ season.description }}</p></li>
                 {%  endfor %}
             </ul>
         </div>
