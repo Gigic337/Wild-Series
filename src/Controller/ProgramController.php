@@ -29,7 +29,7 @@ class ProgramController extends AbstractController
 
         $session = $requestStack->getSession();
         if (!$session->has('total')) {
-            $session->set ('total', 0); // On initialise le compteur à 0 si il n'existe pas
+            $session->set ('total', 0); // On initialise le compteur à 0 s'il n'existe pas
         }
 
         $total = $session->get('total'); // On récupère la valeur du compteur
