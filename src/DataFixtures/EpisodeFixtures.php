@@ -19,8 +19,8 @@ class EpisodeFixtures extends Fixture implements DependentFixtureInterface
             $episode
                 ->setTitle($faker->title())
                 ->setNumber($faker->unique()->numberBetween(1, 10))
-                ->setSynopsis($faker->paragraph(5))
-                ->setSeason($this->getReference('season_'. $faker->numberBetween(1, 5)));
+                ->setSynopsis($faker->paragraph(2))
+                ->setSeason($this->getReference('season_'. $faker->numberBetween(1, 4)));
 
             $manager->persist($episode);
         }

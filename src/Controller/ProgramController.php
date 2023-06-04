@@ -12,25 +12,34 @@ use App\Repository\SeasonRepository;
 use App\Repository\ProgramRepository;
 use App\Repository\EpisodeRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Validator\Constraints\Length; // Mise à jour de la référence
+
 
 #[Route('/program', name: 'program_')]
 class ProgramController extends AbstractController
 {
     #[Route('/', name: 'index')]
-    public function index(ProgramRepository $programRepository): Response
+    public function index(ProgramRepository $programRepository, RequestStack $requestStack): Response
     {
         $programs = $programRepository->findAll();
+
+        $session = $requestStack->getSession();
+        if (!$session->has('total')) {
+            $session->set ('total', 0); // On initialise le compteur à 0 si il n'existe pas
+        }
+
+        $total = $session->get('total'); // On récupère la valeur du compteur
 
         return $this->render('program/index.html.twig', [
             'programs' => $programs
         ]);
     }
 
-    #[Route('/new', name: 'new')]
+    #[Route('/new', name: 'new', methods: ['GET', 'POST'])]
     public function new(Request $request, ProgramRepository $programRepository): Response
     {
         $program = new Program();
@@ -40,12 +49,15 @@ class ProgramController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $programRepository->save($program, true);
 
+            $this->addFlash('success', 'The new program has been created');
+
             // Redirect to program list
             return $this->redirectToRoute('program_index');
         }
 
         // Render the form
         return $this->render('program/new.html.twig', [
+            'program' => $program,
             'form' => $form->createView(), // Utilisez createView() pour passer le formulaire à la vue
         ]);
     }
