@@ -6,6 +6,7 @@ use App\Entity\Program;
 use App\Entity\Season;
 use App\Entity\Episode;
 use App\Entity\Category;
+use App\Entity\Actor;
 use App\Form\ProgramType;
 use App\Repository\CategoryRepository;
 use App\Repository\SeasonRepository;
@@ -94,4 +95,14 @@ class ProgramController extends AbstractController
             'program' => $program
         ]);
     }
+
+    #[Route('/{program}/actors/{actor}', name: 'actor_show')]
+    public function showActor(Program $program, Actor $actor): Response
+    {
+        return $this->render('program/actor_show.html.twig', [
+            'actor' => $actor,
+            'program' => $program
+        ]);
+    }
+
 }

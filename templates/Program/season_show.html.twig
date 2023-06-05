@@ -4,6 +4,26 @@
 
 {% block body %}
     <h1> Season show</h1>
-    <h3> Season number :  {{ season.number }}</h3>
+    <h3> {{ season.program.title }}</h3>
+    <h3> Season number :  {{ season.number }} of {{ program.title }}</h3>
+    <p> Année :{{ season.year }}</p>
+    <p> Résumé de la saison :{{ season.description }}</p>
+    {% for episode in season.episodes %}
+        <p> {{ episode.title }}</p>
+        <p> Episode n°{{ episode.number }}</p>
+        <p> Synopsis : {{ episode.synopsis }}</p>
+    {% endfor %}
+    {% if season.number > 1 %}
+        <a href="{{ path('program_season_show', {program: program.id, season: season.number - 1}) }}">Voir la saison précédente</a>
+    {% endif %}
+
+    {% if season.number < program.seasons|length %}
+        <a href="{{ path('program_season_show', {program: program.id, season: season.number + 1}) }}">Voir la saison suivante</a>
+    {% endif %}
+
+
+    <a href="{{ path('program_index') }}">Retour à la liste des séries</a>
+
+
 
 {% endblock %}

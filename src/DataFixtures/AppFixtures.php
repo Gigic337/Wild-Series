@@ -6,6 +6,7 @@ use App\Entity\Category;
 use App\Entity\Episode;
 use App\Entity\Program;
 use App\Entity\Season;
+use App\Entity\Actor;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Faker\Factory;
@@ -78,6 +79,24 @@ class AppFixtures extends Fixture
         ],
     ];
 
+    public const ACTORS = [
+        'Gabriel Basso',
+        'Luciane Buchanan',
+        'Andre Anthony',
+        'Kiefer Sutherland',
+        'Mary Lynn Rajskub',
+        'Carlos Bernard',
+        'Charlie Sheen',
+        'Jon Cryer',
+        'Angus T. Jones',
+        'Luffy',
+        'Nami',
+        'Zoro',
+        'Eleanor Matsuura',
+        'Norman Reedus',
+        'Andrew Lincoln',
+    ];
+
 
     public function load(ObjectManager $manager): void
     {
@@ -114,9 +133,8 @@ class AppFixtures extends Fixture
         // Season
         $seasons = [];
 
-        foreach ($programs as $program)
-        {
-            for($i = 1; $i < 5; $i++) {
+        foreach ($programs as $program) {
+            for ($i = 1; $i < 5; $i++) {
                 $season = new Season();
                 $season->setNumber($i);
                 $season->setDescription($faker->paragraph(2));
@@ -145,7 +163,29 @@ class AppFixtures extends Fixture
             }
         }
 
+        //Actor
+
+        $actors = [];
+        foreach (self::ACTORS as $data) {
+            $actor = new Actor();
+            $actor->setName($data);
+
+            $randomPrograms = array_rand($programs, 3); // Sélectionne trois index de programmes aléatoires
+
+            foreach ($randomPrograms as $index) {
+                $actor->addProgram($programs[$index]);
+            }
+
+            $manager->persist($actor);
+        }
 
         $manager->flush();
+
     }
+
+
 }
+
+
+
+
