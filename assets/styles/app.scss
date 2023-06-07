@@ -1,5 +1,16 @@
+@import "~bootstrap";
+
 body {
-    background-color: blue;
+    background-color: whitesmoke;
 }
 
-@import "~bootstrap/scss/bootstrap";
+h1, h2, h3, h4 {
+    font-family: Oxygen, sans-serif;
+    color: rgb(53, 218, 212);
+    font-weight: bolder;
+}
+
+p {
+    color: rgb(25, 47, 1);
+}
+
