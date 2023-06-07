@@ -23,6 +23,7 @@ class AppFixtures extends Fixture
         'Fantastique',
         'Horreur',
         'Policier',
+        'Romance',
         'Science-fiction',
         'Thriller',
     ];
