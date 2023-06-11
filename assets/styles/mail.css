@@ -1,0 +1,13 @@
+. {
+    font-family: "Times New Roman, Times, serif", serif;
+}
+
+h2 {
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+p{
+    font-size: 1em;
+    font-weight: normal;
+}

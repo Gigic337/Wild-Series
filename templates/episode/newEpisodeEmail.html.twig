@@ -1,0 +1,16 @@
+{% extends 'layoutEmail.html.twig' %}
+{% block body %}
+
+    <h2>New  {{ episode.title }} created</h2>
+    <p>Hello, </p>
+
+    <p> Your favorite website has been updated with new program</p>
+
+    <p>We added this week on Wild Series a new episode in your favorite show {{ episode.season.program.title }}
+        for season  {{ episode.season.number }} </p>
+
+    <p>Synopsis : {{episode.synopsis }}</p>
+
+    <p> We will keep you posted with new releases</p>
+
+{% endblock body %}

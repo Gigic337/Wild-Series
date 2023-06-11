@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html  data-layout-mode="dark">
     <head>
         <meta charset="UTF-8">
         <title>{% block title %}Welcome!{% endblock %}</title>
@@ -19,6 +19,7 @@
     </head>
 
     <body>
+    <button id="theme-btn">Changer de theme</button>
             {% include '_navbar.html.twig' %}
 
             {% for category, messages in app.flashes %}

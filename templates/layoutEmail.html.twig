@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="./../assets/styles/mail.css" rel="stylesheet">
+
+    <title> {% block title%} New {# episode, season or program #} {% endblock %}</title>
+</head>
+<body>
+{% block body %}
+
+<h2>New {# episode, season or program#} created</h2>
+<p>Hello, {# user name#} </p>
+<p> Your favorite website has been updated with new {# episode, season or program #}</p>
+
+<p>We added this week on Wild Series a new {# program with his name or season with name of the program or
+episode with name of the program and number and name of the season #}</p>
+
+<p>Synopsis : {# synopsis #}</p>
+
+<p> We will keep you posted with new releases</p>
+{#add link to the episode, season or program added#}
+
+
+</body>
+{% endblock %}
+</html>

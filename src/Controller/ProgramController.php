@@ -17,6 +17,8 @@ use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Mime\Email;
+use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 
@@ -41,16 +43,26 @@ class ProgramController extends AbstractController
     }
 
     #[Route('/new', name: 'new', methods: ['GET', 'POST'])]
-    public function new(Request $request, ProgramRepository $programRepository): Response
+    public function new(Request $request, MailerInterface $mailer, ProgramRepository $programRepository): Response
     {
         $program = new Program();
+
         $form = $this->createForm(ProgramType::class, $program);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $programRepository->save($program, true);
 
+                 $email = (new Email())
+                     ->from($this->getParameter('mailer_from'))
+                     ->to('your_email@example.com')
+                     ->subject('Une nouvelle série vient d\'être publiée !')
+                     ->html($this->renderView('Program/newProgramEmail.html.twig', ['program' => $program]));
+
+            $mailer->send($email);
+
             $this->addFlash('success', 'The new program has been created');
+
 
             // Redirect to program list
             return $this->redirectToRoute('program_index');
@@ -60,6 +72,7 @@ class ProgramController extends AbstractController
         return $this->render('program/new.html.twig', [
             'program' => $program,
             'form' => $form->createView(), // Utilisez createView() pour passer le formulaire à la vue
+            'mail' =>$mailer,
         ]);
     }
 
